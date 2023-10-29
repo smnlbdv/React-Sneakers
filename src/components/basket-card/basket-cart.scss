@@ -1,0 +1,57 @@
+.list__basket-item {
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #E4E4E4;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.list__basket-image {
+    width: 70px;
+    margin-right: 21px;
+
+    img {
+        width: 100%;
+        transform: translateY(-5px);
+    }
+}
+
+.list__basket-description {
+    margin-right: 12px;
+    max-width: 150px;
+
+    p {
+        margin: 0;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400; 
+    }
+
+    b {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700; 
+        margin: 0;
+    }
+}
+
+.list__basket-button {
+    width: 32px;
+    height: 32px;
+    background: #FFFFFF;
+    border: 1px solid #DBDBDB;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 350ms;
+
+    &:hover img {
+        transform: rotate(215deg);
+        transition: all 350ms;
+    }
+
+    img {
+        transform: rotate(45deg);
+        transition: all 350ms;
+    }
+}
