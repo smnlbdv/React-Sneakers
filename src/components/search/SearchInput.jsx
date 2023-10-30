@@ -1,10 +1,10 @@
-import './search-input.scss'
+import style from './search-input.module.scss'
 
 const SearchBlock = () => {
     return ( 
-        <div className="search__block">
-            <img className="search__block-icon" src='/icon/search.svg'/>
-            <input className="search__block-input" type="text" placeholder='Поиск...'/>
+        <div className={style.search__block}>
+            <img className={style.icon} src='/icon/search.svg'/>
+            <input className={style.input} type="text" placeholder='Поиск...'/>
         </div>
      );
 }
