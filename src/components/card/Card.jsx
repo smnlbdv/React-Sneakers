@@ -1,21 +1,45 @@
-import style from "./card.module.scss"
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import style from "./card.module.scss";
 
-const Card = () => {
-    return ( 
-        <div className={style.card}>
-            <img className={style.image} src="/image/sneakers-1.jpg" alt="Sneakers" />
-            <p className={style.title} >Мужские Кроссовки Nike Blazer Mid Suede</p>
-            <div className={style.description }>
-              <div className={style.price}>
-                <span>Цена:</span>
-                <b>12 999 руб.</b>
-              </div>
-              <button className={style.button_add}>
-                <img src="/icon/btn-add-plus.svg" alt="" />
-              </button>
-            </div>
+function Card({imgUrl, title, price, onFavorite, onPlus}) {
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleClick = () => {
+    onPlus({imgUrl, title, price});
+    setIsAdded(!isAdded);
+  };
+
+  
+
+  return (
+    <div className={style.card}>
+      <div className={style.block_image}>
+        <img className={style.image} src={imgUrl} alt="Sneakers" />
+        <img
+          className={style.img_favorite}
+          src="/icon/favorite-love.svg"
+          alt=""
+          onClick={onFavorite}
+        />
+      </div>
+      <p className={style.title}>{title}</p>
+      <div className={style.description}>
+        <div className={style.price}>
+          <span>Цена:</span>
+          <b>{price}</b>
         </div>
-     );
+        <img
+          className={style.image_add}
+          onClick={handleClick}
+          src={
+            isAdded ? "/icon/btn-add-plus-check.svg" : "/icon/btn-add-plus.svg"
+          }
+          alt="addIcon"
+        />
+      </div>
+    </div>
+  );
 }
- 
+
 export default Card;

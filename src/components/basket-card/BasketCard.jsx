@@ -1,17 +1,18 @@
+/* eslint-disable react/prop-types */
 import style from './basket-cart.module.scss'
 
-const BasketCard = () => {
+const BasketCard = ({imgUrl, title, price}) => {
     return ( 
         <div className={style.list__basket_item}>
             <div className={style.list__basket_image}>
-                <img src="/image/cart-image-1.jpg" alt="" />
+                <img src={imgUrl} alt="" />
             </div>
             <div className={style.list__basket_description}>
-                <p>Мужские Кроссовки Nike Air Max 270</p>
-                <b>12 999 руб.</b>
+                <p>{title}</p>
+                <b>{price}</b>
             </div>
             <button className={style.list__basket_button}>
-                <img src="/icon/btn-add-plus.svg" alt="" />
+                <img src="/icon/cart-close-item.svg" alt="" />
             </button>
         </div>
      );

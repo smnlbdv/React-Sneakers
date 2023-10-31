@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import style from './header.module.scss'
 
-const Header = () => {
+const Header = (props) => {
     return ( 
         <header className={style.header}>
             <div className={style.header__logo}>
@@ -12,7 +13,7 @@ const Header = () => {
             </div>
             <nav className={style.navigation}>
                 <ul className={style.list__navigation}>
-                    <li className={style.list__item}>
+                    <li className={style.list__item} onClick={props.clickCartIcon}>
                         <img className={style.list__image} src="/icon/cart.svg" alt="Cart" />
                         <p className={[style.list__text, style.text__cart].join(' ')}>1205 руб.</p>
                     </li>
