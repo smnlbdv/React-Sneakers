@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import style from './search-input.module.scss'
 
-const SearchBlock = () => {
+const SearchBlock = ({searchItem, value}) => {
     return ( 
         <div className={style.search__block}>
             <img className={style.icon} src='/icon/search.svg'/>
-            <input className={style.input} type="text" placeholder='Поиск...'/>
+            <input onChange={searchItem} className={style.input} value={value} type="text" placeholder='Поиск...'/>
         </div>
      );
 }

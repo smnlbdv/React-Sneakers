@@ -5,6 +5,7 @@ import BasketCard from '../basket-card/BasketCard';
 import GreenBtn from '../green-button/GreenBtn';
 
 const Basket = ({onClose, items = []}) => {
+    
     return ( 
         <div className={style.view__basket}>
 
@@ -25,6 +26,7 @@ const Basket = ({onClose, items = []}) => {
                         items.map((obj, index) => (
                             <BasketCard 
                                 key = {index}
+                                id={obj.id}
                                 imgUrl = {obj.imgUrl}
                                 title = {obj.title}
                                 price = {obj.price}

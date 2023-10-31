@@ -1,8 +1,12 @@
+import { useEffect, useState} from "react"
 import Header from "./components/header/Header.jsx"
 import SearchInput from "./components/search/SearchInput.jsx"
 import Card from "./components/card/Card.jsx"
 import Basket from "./components/basket/Basket.jsx"
-import { useEffect, useState } from "react"
+
+import { Context } from "./context.js"
+
+import axios from "axios"
 
 
 function App() {
@@ -10,6 +14,7 @@ function App() {
   const [items, setItems] = useState([])
   const [cartOpen, setCartOpen] = useState(false)
   const [cartItems, setCartItems] = useState([])
+  const [searchValue, setSearchValue] = useState('')
 
   const body = document.body
 
@@ -19,19 +24,33 @@ function App() {
   }
 
   useEffect(() => {
-    fetch('https://6540d1ed45bedb25bfc2af59.mockapi.io/sneakers')
-      .then(item => item.json())
-      .then(data => setItems(data))
+    axios.get('https://6540d1ed45bedb25bfc2af59.mockapi.io/sneakers')
+         .then(res => setItems(res.data))
+
+    axios.get('https://6540d1ed45bedb25bfc2af59.mockapi.io/cart')
+         .then(res => setCartItems(res.data))
   }, [])
 
   const onAddToCart = (obj) => {
+    axios.post('https://6540d1ed45bedb25bfc2af59.mockapi.io/cart', obj)
     setCartItems(prev => [...prev, obj])
+  }
+
+  const onChangeSearch = (event) => {
+    setSearchValue(event.target.value)
+  }
+
+  const onRemoveItem = (id) => {
+    axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${id}`)
+    setCartItems((prev) => prev.filter(item => item.id !== id))
   }
 
   return (
     <div className='wrapper clear'>
 
-      {cartOpen && <Basket onClose = {clickCartIcon} items = {cartItems} />}
+      <Context.Provider value={onRemoveItem}>
+          {cartOpen && <Basket onClose = {clickCartIcon} items = {cartItems}/>}
+      </Context.Provider>
 
       <Header clickCartIcon = {clickCartIcon} />
 
@@ -41,13 +60,17 @@ function App() {
         
         <div className="header__section">
           <h1 className="title-section" >Все кроссовки</h1>
-          <SearchInput />
+
+          <SearchInput searchItem = {onChangeSearch} value = {searchValue}/>
+
         </div>
 
         <div className="sneakers__list">
 
           {
-            items.map((obj, index) => (
+            items
+              .filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+              .map((obj, index) => (
               <Card 
                 key = {index}
                 imgUrl = {obj.imgUrl}
