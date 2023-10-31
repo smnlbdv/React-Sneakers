@@ -1,15 +1,15 @@
-import './basket.scss'
+import style from './basket.module.scss'
 
 import BasketCard from '../basket-card/BasketCard';
 import GreenBtn from '../green-button/GreenBtn';
 
 const Basket = () => {
     return ( 
-        <div className="view__basket">
+        <div className={style.view__basket}>
 
-            <div className="basket">
+            <div className={style.basket}>
                 
-                <div className="basket__header">
+                <div className={style.basket__header}>
                     <h3 className="basket__title">Корзина</h3>
                     <button>
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -18,24 +18,24 @@ const Basket = () => {
                     </button>
                 </div>
 
-                <div className="list__basket">
+                <div className={style.list__basket}>
 
                     <BasketCard />
 
                 </div>
 
-                <div className="total-block">
+                <div className={style.total_block}>
 
-                    <div className="total-block-price">
+                    <div className={style.price}>
                         <p>Итого:</p>
                         <span></span>
-                        <p className='price_bold'>21 498 руб.</p>
+                        <p className={style.price_bold}>21 498 руб.</p>
                     </div>
 
-                    <div className="total-block-price">
+                    <div className={style.price}>
                         <p>Налог 5%:</p>
                         <span></span>
-                        <p className='price_bold'>1074 руб.</p>
+                        <p className={style.price_bold}>1074 руб.</p>
                     </div>
 
                     <GreenBtn/>
