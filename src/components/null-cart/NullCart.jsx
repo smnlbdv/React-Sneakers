@@ -5,13 +5,14 @@ import { Context } from '../../context.js'
 
 export default function NullCart(){
 
-    const clickCartIcon= useContext(Context)
+    const {clickCartIcon} = useContext(Context)
+
     return ( 
         <div className={style.block__null}>
             <img className={style.null__img} src="./image/cart-null.png" alt="Empty" />
             <h2>Корзина пустая</h2>
             <p>Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
-            <GreenBtn onClose = {clickCartIcon} title = {"Вернуться назад"} styles = {true} />
+            <GreenBtn onCloseCart = {clickCartIcon} title = {"Вернуться назад"} styles = {true} />
         </div>
     );
 }

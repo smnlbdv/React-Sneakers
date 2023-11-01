@@ -64,7 +64,7 @@ const Basket = ({items = []}) => {
                         </> 
                     )
                     : 
-                    ( <NullCart/> )
+                    ( <NullCart /> )
                 }
 
             </div>
