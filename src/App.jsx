@@ -45,11 +45,16 @@ function App() {
     setCartItems((prev) => prev.filter(item => item.id !== id))
   }
 
+  const functionCart = {
+    onRemoveItem,
+    clickCartIcon
+  };
+
   return (
     <div className='wrapper clear'>
 
-      <Context.Provider value={onRemoveItem}>
-          {cartOpen && <Basket onClose = {clickCartIcon} items = {cartItems}/>}
+      <Context.Provider value={functionCart}>
+          {cartOpen && <Basket items = {cartItems}/>}
       </Context.Provider>
 
       <Header clickCartIcon = {clickCartIcon} />

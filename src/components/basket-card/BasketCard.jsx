@@ -5,7 +5,7 @@ import { Context } from '../../context.js'
 
 const BasketCard = ({id, imgUrl, title, price}) => {
     
-    const onRemoveItem = useContext(Context)
+    const {onRemoveItem} = useContext(Context)
 
     return ( 
         <div className={style.list__basket_item}>
