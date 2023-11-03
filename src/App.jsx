@@ -2,6 +2,7 @@ import { useEffect, useState} from "react"
 import { Route, Routes } from 'react-router-dom'
 import { Context } from "./context.js"
 
+
 import Header from "./components/header/Header.jsx"
 import Basket from "./components/basket/Basket.jsx"
 import Home from "./pages/Home.jsx"
@@ -17,6 +18,7 @@ function App() {
   const [cartItems, setCartItems] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [favoriteItems, setFavoriteItems] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
 
   const body = document.body
@@ -27,25 +29,49 @@ function App() {
   }
 
   useEffect(() => {
-    axios.get('https://6540d1ed45bedb25bfc2af59.mockapi.io/sneakers')
-         .then(res => setItems(res.data))
+    async function fetchData () {
 
-    axios.get('https://6540d1ed45bedb25bfc2af59.mockapi.io/cart')
-         .then(res => setCartItems(res.data))
+      setIsLoading(true)
+
+      const cartRepsonse = await axios.get('https://6540d1ed45bedb25bfc2af59.mockapi.io/cart')
+      const itemsRepsonse = await axios.get('https://6540d1ed45bedb25bfc2af59.mockapi.io/sneakers')
+
+      setIsLoading(false)
+
+      setItems(itemsRepsonse.data)
+      setCartItems(cartRepsonse.data)
+
+    }
+    
+    fetchData()
+
   }, [])
 
   const onAddToCart = (obj) => {
-    axios.post('https://6540d1ed45bedb25bfc2af59.mockapi.io/cart', obj)
-    setCartItems(prev => [...prev, obj])
+    try {
+      if(cartItems.find(item => Number(item.id) == Number(obj.id))) {
+        setCartItems(prev => prev.filter(item => Number(item.id) != Number(obj.id)))
+        axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${Number(obj.id)}`)
+      } else {
+        axios.post('https://6540d1ed45bedb25bfc2af59.mockapi.io/cart', obj)
+        setCartItems(prev => [...prev, obj])
+      }
+    } catch (error) {
+      alert(error)
+    }
   }
 
   const onChangeSearch = (event) => {
     setSearchValue(event.target.value)
   }
 
-  const onRemoveItem = (id) => {
-    axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${id}`)
-    setCartItems((prev) => prev.filter(item => item.id != id))
+  const onRemoveItem = (id, title) => {
+    try {
+      axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${id}`)
+      setCartItems((prev) => prev.filter(item => item.title != title))
+    } catch (error) {
+      alert(error)
+    }
   }
 
   const functionCart = {
@@ -76,10 +102,12 @@ function App() {
         <Route path="/" element={
           <Home 
             items = {items} 
+            cartItems = {cartItems}
             onAddToCart = {onAddToCart} 
             onChangeSearch={onChangeSearch} 
             addNewFavorite={addNewFavorite} 
-            searchValue={searchValue}/>
+            searchValue={searchValue}
+            isLoading={isLoading}/>
           }>
         </Route>
         <Route path="/favorites" element={

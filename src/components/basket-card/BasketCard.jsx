@@ -16,7 +16,7 @@ const BasketCard = ({id, imgUrl, title, price}) => {
                 <p>{title}</p>
                 <b>{price}</b>
             </div>
-            <button onClick={() => onRemoveItem(id)} className={style.list__basket_button} >
+            <button onClick={() => onRemoveItem(id, title)} className={style.list__basket_button} >
                 <img src="/icon/cart-close-item.svg" alt="" />
             </button>
         </div>

@@ -27,7 +27,8 @@ const Favorites = ({onChangeSearch, searchValue, favoriteItems = [], onAddToCart
                         price = {obj.price}
                         onPlus={(obj) => onAddToCart(obj)}
                         onFavorite = {(obj) => addNewFavorite(obj)}
-                        favorite = {true}
+                        favorite
+                        isLoading = {false}
                     />
                     ))
                 }

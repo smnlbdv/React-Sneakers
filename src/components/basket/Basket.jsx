@@ -4,12 +4,28 @@ import style from './basket.module.scss'
 import BasketCard from '../basket-card/BasketCard';
 import GreenBtn from '../green-button/GreenBtn';
 import NullCart from '../null-cart/NullCart';
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Context } from '../../context.js'
 
 const Basket = ({items = []}) => {
     
     const {clickCartIcon} = useContext(Context)
+    // const [price, setPrice] = useState(null)
+
+    // useEffect(() => {
+    //     setPrice(calcTotal())
+    // }, [items])
+
+    // let count = 0
+
+    // function calcTotal() {
+    //     if(items.length !== 0) {
+    //         items.forEach(element => {
+    //             count += element.price
+    //         });
+    //     }
+    //     return count
+    // }
 
     return ( 
         <div className={style.view__basket}>
@@ -49,7 +65,7 @@ const Basket = ({items = []}) => {
                                 <div className={style.price}>
                                     <p>Итого:</p>
                                     <span></span>
-                                    <p className={style.price_bold}>21 498 руб.</p>
+                                    <p className={style.price_bold}>21 222 руб.</p>
                                 </div>
 
                                 <div className={style.price}>
