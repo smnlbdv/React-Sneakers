@@ -1,0 +1,96 @@
+.view__basket {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.568);
+}
+
+.basket__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.basket__header .basket__title {
+  margin: 0;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+}
+.basket__header button {
+  width: 32px;
+  height: 32px;
+  background: #FFFFFF;
+  border: 1px solid #DBDBDB;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 350ms;
+}
+.basket__header button:hover {
+  border: 1px solid #f83d3d;
+  transition: all 250ms;
+}
+.basket__header button:hover path {
+  fill: #f83d3d;
+  transition: all 250ms;
+}
+.basket__header button path {
+  transition: all 250ms;
+}
+.basket__header button svg {
+  transform: rotate(45deg);
+}
+
+.basket {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 385px;
+  height: 100%;
+  overflow: hidden;
+  background-color: white;
+  right: 0;
+  padding: 30px;
+}
+
+.list__basket {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  margin-top: 30px;
+  flex: 1;
+  margin-bottom: 30px;
+  overflow: auto;
+}
+
+.total_block {
+  display: flex;
+  flex-direction: column;
+  row-gap: 19px;
+}
+
+.price {
+  display: flex;
+  align-items: end;
+}
+.price p {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0;
+}
+.price span {
+  flex: 1;
+  margin: 0;
+  border-bottom: 1px dashed #DFDFDF;
+  margin: 0 8px;
+  transform: translateY(-2px);
+}
+.price .price_bold {
+  margin: 0;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+}

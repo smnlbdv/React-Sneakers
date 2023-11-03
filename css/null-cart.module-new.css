@@ -1,0 +1,31 @@
+.block__null {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-bottom: 60px;
+}
+.block__null .null__img {
+  width: 120px;
+  height: 120px;
+}
+.block__null h2 {
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  margin: 0;
+  margin-top: 21px;
+}
+.block__null p {
+  width: 90%;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.5;
+  text-align: center;
+  line-height: 24px;
+  margin: 0;
+  margin-top: 9px;
+  margin-bottom: 16px;
+}

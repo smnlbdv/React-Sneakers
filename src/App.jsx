@@ -1,12 +1,13 @@
 import { useEffect, useState} from "react"
-import Header from "./components/header/Header.jsx"
-import SearchInput from "./components/search/SearchInput.jsx"
-import Card from "./components/card/Card.jsx"
-import Basket from "./components/basket/Basket.jsx"
-
+import { Route, Routes } from 'react-router-dom'
 import { Context } from "./context.js"
 
+import Header from "./components/header/Header.jsx"
+import Basket from "./components/basket/Basket.jsx"
+import Home from "./pages/Home.jsx"
+
 import axios from "axios"
+import Favorites from "./pages/Favorites.jsx"
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
   const [cartOpen, setCartOpen] = useState(false)
   const [cartItems, setCartItems] = useState([])
   const [searchValue, setSearchValue] = useState('')
+  const [favoriteItems, setFavoriteItems] = useState([])
+
 
   const body = document.body
 
@@ -42,13 +45,21 @@ function App() {
 
   const onRemoveItem = (id) => {
     axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${id}`)
-    setCartItems((prev) => prev.filter(item => item.id !== id))
+    setCartItems((prev) => prev.filter(item => item.id != id))
   }
 
   const functionCart = {
     onRemoveItem,
     clickCartIcon
   };
+
+  const addNewFavorite = (obj) => {
+    if(favoriteItems.find(item => item.title === obj.title)) {
+      setFavoriteItems((prev) => prev.filter(item => item.title !== obj.title))
+    } else {
+      setFavoriteItems(prev => [...prev, obj])
+    }
+  }
 
   return (
     <div className='wrapper clear'>
@@ -61,35 +72,28 @@ function App() {
 
       <section className="slider__section"></section>
 
-      <section className="sneakers__section">
-        
-        <div className="header__section">
-          <h1 className="title-section" >Все кроссовки</h1>
-
-          <SearchInput searchItem = {onChangeSearch} value = {searchValue}/>
-
-        </div>
-
-        <div className="sneakers__list">
-
-          {
-            items
-              .filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-              .map((obj, index) => (
-              <Card 
-                key = {index}
-                imgUrl = {obj.imgUrl}
-                title = {obj.title}
-                price = {obj.price}
-                onFavorite = {() => console.log('favorite')}
-                onPlus={onAddToCart}
-              />
-            ))
-          }
-
-        </div>
-
-      </section>
+      <Routes>
+        <Route path="/" element={
+          <Home 
+            items = {items} 
+            onAddToCart = {onAddToCart} 
+            onChangeSearch={onChangeSearch} 
+            addNewFavorite={addNewFavorite} 
+            searchValue={searchValue}/>
+          }>
+        </Route>
+        <Route path="/favorites" element={
+          <Favorites 
+            onChangeSearch={onChangeSearch} 
+            searchValue={searchValue}
+            favoriteItems = {favoriteItems}
+            onAddToCart = {onAddToCart} 
+            addNewFavorite={addNewFavorite} 
+          />
+        }>
+        </Route>
+      </Routes>
+      
     </div>
   )
 }
