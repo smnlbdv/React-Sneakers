@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import SearchInput from "../components/search/SearchInput.jsx"
 import Card from "../components/card/Card.jsx"
-import { useEffect } from "react";
 
-const Home = ({items = [], cartItems = [], onAddToCart, onChangeSearch, addNewFavorite, searchValue, isLoading}) => {
+const Home = ({items = [], onAddToCart, onChangeSearch, addNewFavorite, searchValue, isLoading}) => {
 
     const renderItems = () => {
 
@@ -16,7 +15,6 @@ const Home = ({items = [], cartItems = [], onAddToCart, onChangeSearch, addNewFa
                 loading={isLoading}
                 onFavorite = {(obj) => addNewFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
-                added = {cartItems.some(item1 => Number(item1.cart_id) === Number(obj.id))}
                 {...obj}
             />
         ))

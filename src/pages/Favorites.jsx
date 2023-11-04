@@ -22,13 +22,10 @@ const Favorites = ({onChangeSearch, searchValue, favoriteItems = [], onAddToCart
                     .map((obj, index) => (
                     <Card 
                         key = {index}
-                        imgUrl = {obj.imgUrl}
-                        title = {obj.title}
-                        price = {obj.price}
                         onPlus={(obj) => onAddToCart(obj)}
                         onFavorite = {(obj) => addNewFavorite(obj)}
-                        favorite
-                        isLoading = {false}
+                        loading = {false}
+                        {...obj}
                     />
                     ))
                 }

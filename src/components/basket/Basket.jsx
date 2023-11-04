@@ -2,14 +2,21 @@
 import style from './basket.module.scss'
 
 import BasketCard from '../basket-card/BasketCard';
-import GreenBtn from '../green-button/GreenBtn';
 import NullCart from '../null-cart/NullCart';
 import { useContext, useEffect, useState } from 'react'
 import { Context } from '../../context.js'
 
 const Basket = ({items = []}) => {
-    
-    const {clickCartIcon} = useContext(Context)
+
+    const [isOrderComplete, setIsOrderComplete] = useState(false)
+
+    const {clickCartIcon, setCartItems} = useContext(Context)
+
+    const onClickOrder = () => {
+        setIsOrderComplete(!isOrderComplete)
+        setCartItems([])
+    }
+
     // const [price, setPrice] = useState(null)
 
     // useEffect(() => {
@@ -74,13 +81,20 @@ const Basket = ({items = []}) => {
                                     <p className={style.price_bold}>1074 руб.</p>
                                 </div>
 
-                                <GreenBtn title = {"Оформить заказ"}/>
+                                <button onClick={onClickOrder} className={[style.green__button, style.revers].join(' ')}>
+                                    Оформить заказ
+                                    <img className={style.img__green__button} src="/icon/line.svg" alt="line-btn"/>
+                                </button>
                                     
                             </div>
                         </> 
                     )
                     : 
-                    ( <NullCart /> )
+                    ( <NullCart
+                        title={isOrderComplete ? "Заказ оформлен!" : "Корзина пустая"} 
+                        description={isOrderComplete ? "Ваш заказ скоро будет передан курьерской доставке" : "Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."} 
+                        image={isOrderComplete ? "./image/cart-true.png" : "./image/cart-null.png"}/>
+                    )
                 }
 
             </div>

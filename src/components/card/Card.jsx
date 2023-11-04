@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import style from "./card.module.scss";
 import ContentLoader from "react-content-loader";
+import { Context } from '../../context.js'
 
 function Card({
   id,
@@ -10,21 +11,19 @@ function Card({
   price,
   onPlus,
   onFavorite,
-  favorite = false,
-  added = false,
   loading = true,
 }) {
-  const [isAdded, setIsAdded] = useState(added);
-  const [isFavorite, setIsFavorite] = useState(favorite);
+  
+  const {isItemAdded, isItemFavorite} = useContext(Context)
+
+  
 
   const handleClick = () => {
     onPlus({ cart_id: id, imgUrl, title, price });
-    setIsAdded(!isAdded);
   };
 
   const loveClick = () => {
-    onFavorite({ imgUrl, title, price });
-    setIsFavorite(!isFavorite);
+    onFavorite({ id, imgUrl, title, price });
   };
 
   return (
@@ -51,7 +50,7 @@ function Card({
             <img
               className={style.img_favorite}
               src={
-                isFavorite
+                isItemFavorite(id)
                   ? "/icon/favorite-love-red.svg"
                   : "/icon/favorite-love.svg"
               }
@@ -69,7 +68,7 @@ function Card({
               className={style.image_add}
               onClick={handleClick}
               src={
-                isAdded
+                isItemAdded(id)
                   ? "/icon/btn-add-plus-check.svg"
                   : "/icon/btn-add-plus.svg"
               }

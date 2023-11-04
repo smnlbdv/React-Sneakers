@@ -74,53 +74,57 @@ function App() {
     }
   }
 
-  const functionCart = {
-    onRemoveItem,
-    clickCartIcon
-  };
-
   const addNewFavorite = (obj) => {
-    if(favoriteItems.find(item => item.title === obj.title)) {
-      setFavoriteItems((prev) => prev.filter(item => item.title !== obj.title))
-    } else {
+    console.log(favoriteItems)
+    if(favoriteItems.find(item => Number(item.id) === Number(obj.id))) {
+      setFavoriteItems((prev) => prev.filter(item =>  Number(item.id) !== Number(obj.id)))
+    } else {  
       setFavoriteItems(prev => [...prev, obj])
     }
+  }
+
+  const isItemAdded = (id) => {
+    return cartItems.some(item => Number(item.cart_id) === Number(id))
+  }
+
+  const isItemFavorite = (id) => {
+    return favoriteItems.some(item => Number(item.id) === Number(id))
   }
 
   return (
     <div className='wrapper clear'>
 
-      <Context.Provider value={functionCart}>
-          {cartOpen && <Basket items = {cartItems}/>}
+      <Context.Provider value={{onRemoveItem, clickCartIcon, isItemAdded, isItemFavorite, setCartItems}}>
+        {cartOpen && <Basket items = {cartItems}/>}
+
+        <Header clickCartIcon = {clickCartIcon} />
+
+        <section className="slider__section"></section>
+
+        <Routes>
+          <Route path="/" element={
+            <Home 
+              items = {items} 
+              cartItems = {cartItems}
+              onAddToCart = {onAddToCart} 
+              onChangeSearch={onChangeSearch} 
+              addNewFavorite={addNewFavorite} 
+              searchValue={searchValue}
+              isLoading={isLoading}/>
+            }>
+          </Route>
+          <Route path="/favorites" element={
+            <Favorites 
+              onChangeSearch={onChangeSearch} 
+              searchValue={searchValue}
+              favoriteItems = {favoriteItems}
+              onAddToCart = {onAddToCart} 
+              addNewFavorite={addNewFavorite} 
+            />
+            }>
+          </Route>
+        </Routes>
       </Context.Provider>
-
-      <Header clickCartIcon = {clickCartIcon} />
-
-      <section className="slider__section"></section>
-
-      <Routes>
-        <Route path="/" element={
-          <Home 
-            items = {items} 
-            cartItems = {cartItems}
-            onAddToCart = {onAddToCart} 
-            onChangeSearch={onChangeSearch} 
-            addNewFavorite={addNewFavorite} 
-            searchValue={searchValue}
-            isLoading={isLoading}/>
-          }>
-        </Route>
-        <Route path="/favorites" element={
-          <Favorites 
-            onChangeSearch={onChangeSearch} 
-            searchValue={searchValue}
-            favoriteItems = {favoriteItems}
-            onAddToCart = {onAddToCart} 
-            addNewFavorite={addNewFavorite} 
-          />
-        }>
-        </Route>
-      </Routes>
       
     </div>
   )
