@@ -14,12 +14,14 @@ import Favorites from "./pages/Favorites.jsx"
 function App() {
 
   const [items, setItems] = useState([])
+  const [count, setCount] = useState(1)
   const [cartOpen, setCartOpen] = useState(false)
   const [cartItems, setCartItems] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [favoriteItems, setFavoriteItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
+  
 
   const body = document.body
 
@@ -48,12 +50,15 @@ function App() {
   }, [])
 
   const onAddToCart = (obj) => {
+
     try {
-      if(cartItems.find(item => Number(item.id) == Number(obj.id))) {
-        setCartItems(prev => prev.filter(item => Number(item.id) != Number(obj.id)))
-        axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${Number(obj.id)}`)
+      if(cartItems.find((item) => Number(item.cart_item) == Number(obj.cart_item))) {
+        setCartItems(prev => prev.filter(item => Number(item.cart_item) !== Number(obj.cart_id)))
+        axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${Number(obj.cart_item)}`)
       } else {
         axios.post('https://6540d1ed45bedb25bfc2af59.mockapi.io/cart', obj)
+        setCount(count + 1)
+        obj.id = count
         setCartItems(prev => [...prev, obj])
       }
     } catch (error) {
@@ -65,17 +70,16 @@ function App() {
     setSearchValue(event.target.value)
   }
 
-  const onRemoveItem = (id, title) => {
+  const onRemoveItem = (id, cart_item) => {
     try {
       axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${id}`)
-      setCartItems((prev) => prev.filter(item => item.title != title))
+      setCartItems((prev) => prev.filter(item => Number(item.cart_item) !== Number(cart_item)))
     } catch (error) {
       alert(error)
     }
   }
 
   const addNewFavorite = (obj) => {
-    console.log(favoriteItems)
     if(favoriteItems.find(item => Number(item.id) === Number(obj.id))) {
       setFavoriteItems((prev) => prev.filter(item =>  Number(item.id) !== Number(obj.id)))
     } else {  
@@ -84,7 +88,7 @@ function App() {
   }
 
   const isItemAdded = (id) => {
-    return cartItems.some(item => Number(item.cart_id) === Number(id))
+    return cartItems.some(item => Number(item.cart_item) === Number(id))
   }
 
   const isItemFavorite = (id) => {
@@ -94,8 +98,8 @@ function App() {
   return (
     <div className='wrapper clear'>
 
-      <Context.Provider value={{onRemoveItem, clickCartIcon, isItemAdded, isItemFavorite, setCartItems}}>
-        {cartOpen && <Basket items = {cartItems}/>}
+      <Context.Provider value={{onRemoveItem, clickCartIcon, isItemAdded, isItemFavorite, setCartItems, cartItems}}>
+        {cartOpen && <Basket/>}
 
         <Header clickCartIcon = {clickCartIcon} />
 

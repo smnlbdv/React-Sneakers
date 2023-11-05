@@ -15,11 +15,9 @@ function Card({
 }) {
   
   const {isItemAdded, isItemFavorite} = useContext(Context)
-
   
-
   const handleClick = () => {
-    onPlus({ cart_id: id, imgUrl, title, price });
+    onPlus({ cart_item: id, imgUrl, title, price });
   };
 
   const loveClick = () => {
@@ -62,7 +60,7 @@ function Card({
           <div className={style.description}>
             <div className={style.price}>
               <span>Цена:</span>
-              <b>{price}</b>
+              <b>{price} руб.</b>
             </div>
             <img
               className={style.image_add}

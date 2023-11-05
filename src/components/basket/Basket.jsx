@@ -3,36 +3,20 @@ import style from './basket.module.scss'
 
 import BasketCard from '../basket-card/BasketCard';
 import NullCart from '../null-cart/NullCart';
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { Context } from '../../context.js'
 
-const Basket = ({items = []}) => {
+const Basket = () => {
 
     const [isOrderComplete, setIsOrderComplete] = useState(false)
+    const {clickCartIcon, setCartItems, cartItems} = useContext(Context)
 
-    const {clickCartIcon, setCartItems} = useContext(Context)
+    const totalPrice = cartItems.reduce((sum, obj) => sum + Number(obj.price), 0)
 
     const onClickOrder = () => {
         setIsOrderComplete(!isOrderComplete)
         setCartItems([])
     }
-
-    // const [price, setPrice] = useState(null)
-
-    // useEffect(() => {
-    //     setPrice(calcTotal())
-    // }, [items])
-
-    // let count = 0
-
-    // function calcTotal() {
-    //     if(items.length !== 0) {
-    //         items.forEach(element => {
-    //             count += element.price
-    //         });
-    //     }
-    //     return count
-    // }
 
     return ( 
         <div className={style.view__basket}>
@@ -49,15 +33,15 @@ const Basket = ({items = []}) => {
                 </div>
 
                 {
-                    items.length > 0 ? (
+                    cartItems.length > 0 ? (
                         <>
                             <div className={style.list__basket}>
-
                                 {
-                                    items.map((obj, index) => (
+                                    cartItems.map((obj, index) => (
                                         <BasketCard 
                                             key = {index}
-                                            id={obj.id}
+                                            id = {obj.id}
+                                            cart_item = {obj.cart_item}
                                             imgUrl = {obj.imgUrl}
                                             title = {obj.title}
                                             price = {obj.price}
@@ -72,13 +56,13 @@ const Basket = ({items = []}) => {
                                 <div className={style.price}>
                                     <p>Итого:</p>
                                     <span></span>
-                                    <p className={style.price_bold}>21 222 руб.</p>
+                                    <p className={style.price_bold}>{totalPrice} руб.</p>
                                 </div>
 
                                 <div className={style.price}>
                                     <p>Налог 5%:</p>
                                     <span></span>
-                                    <p className={style.price_bold}>1074 руб.</p>
+                                    <p className={style.price_bold}>{totalPrice+(totalPrice*5%100)} руб.</p>
                                 </div>
 
                                 <button onClick={onClickOrder} className={[style.green__button, style.revers].join(' ')}>

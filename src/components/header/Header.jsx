@@ -1,8 +1,15 @@
 /* eslint-disable react/prop-types */
+import { useContext } from 'react';
 import style from './header.module.scss'
 import {Link} from 'react-router-dom'
+import { Context } from '../../context.js'
 
 const Header = (props) => {
+
+    const {cartItems} = useContext(Context)
+
+    const totalPrice = cartItems.reduce((sum, obj) => sum + Number(obj.price), 0)
+
     return ( 
         <header className={style.header}>
             <Link to="/">
@@ -19,7 +26,7 @@ const Header = (props) => {
                     
                     <li className={style.list__item} onClick={props.clickCartIcon}>
                         <img className={style.list__image} src="/icon/cart.svg" alt="Cart" />
-                        <p className={[style.list__text, style.text__cart].join(' ')}>1205 руб.</p>
+                        <p className={[style.list__text, style.text__cart].join(' ')}>{totalPrice} руб.</p>
                     </li>
                     <Link to="/favorites">
                         <li className={style.list__item}>
