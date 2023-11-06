@@ -60,7 +60,7 @@ function Card({
           <div className={style.description}>
             <div className={style.price}>
               <span>Цена:</span>
-              <b>{price} руб.</b>
+              <b>{price} $</b>
             </div>
             <img
               className={style.image_add}

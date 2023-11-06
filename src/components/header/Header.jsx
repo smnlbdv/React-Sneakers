@@ -16,8 +16,8 @@ const Header = (props) => {
                 <div className={style.header__logo}>
                         <img className={style.header__image} src="/icon/logo.svg" alt="logo" />
                         <div className="header__text">
-                            <h3 className={style.text__title}>REACT SNEAKERS</h3>
-                            <p className={style.text__description}>Магазин лучших кроссовок</p>
+                            <h3 className={style.text__title}>React Apple</h3>
+                            <p className={style.text__description}>Магазин лучшей техники</p>
                         </div>
                 </div>
             </Link> 
