@@ -6,20 +6,20 @@ import NullCart from '../null-cart/NullCart';
 import { useContext, useState } from 'react'
 import { Context } from '../../context.js'
 
-const Basket = () => {
+const Basket = ({cartOpen}) => {
 
     const [isOrderComplete, setIsOrderComplete] = useState(false)
-    const {clickCartIcon, setCartItems, cartItems} = useContext(Context)
+    const {clickCartIcon, cartItems, allRemoveCart} = useContext(Context)
 
     const totalPrice = cartItems.reduce((sum, obj) => sum + Number(obj.price), 0)
 
     const onClickOrder = () => {
         setIsOrderComplete(!isOrderComplete)
-        setCartItems([])
+        allRemoveCart()
     }
 
     return ( 
-        <div className={style.view__basket}>
+        <div className={`${style.view__basket} ${cartOpen ? style.overlayVisible : ''}`}>
 
             <div className={style.basket}>
                 

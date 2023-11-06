@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  flex: 1;
   margin-bottom: 60px;
 }
 .block__null h2 {
@@ -57,4 +58,8 @@
 .revers {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.null__img {
+  width: 70px;
 }

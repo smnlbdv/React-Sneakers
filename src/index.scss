@@ -18,6 +18,9 @@ button, input {
 }
 
 .sneakers__section {
+  display: flex;
+  flex-direction: column;
+  min-height: 66vh;
   padding: 40px;
 }
 

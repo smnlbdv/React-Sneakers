@@ -6,6 +6,9 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.568);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 350ms ease-in;
 }
 
 .basket__header {
@@ -51,8 +54,9 @@
   height: 100%;
   overflow: hidden;
   background-color: white;
-  right: 0;
+  right: -100%;
   padding: 30px;
+  transition: all 250ms ease-in;
 }
 
 .list__basket {
@@ -116,4 +120,14 @@
 
 .img__green__button {
   width: 13.714px;
+}
+
+.overlayVisible {
+  visibility: visible;
+  opacity: 1;
+  transition: all 350ms ease-in;
+}
+.overlayVisible .basket {
+  right: 0;
+  transition: all 350ms ease-in;
 }
