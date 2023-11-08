@@ -24,7 +24,7 @@ const Home = ({items = [], onAddToCart, onChangeSearch, addNewFavorite, searchVa
         <section className="sneakers__section">
         
             <div className="header__section">
-            <h1 className="title-section" >Все кроссовки</h1>
+            <h1 className="title-section" >Все товары</h1>
 
             <SearchInput searchItem = {onChangeSearch} value = {searchValue}/>
 
