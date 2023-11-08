@@ -26,7 +26,7 @@ const Header = (props) => {
                     
                     <li className={style.list__item} onClick={props.clickCartIcon}>
                         <img className={style.list__image} src="/icon/cart.svg" alt="Cart" />
-                        <p className={[style.list__text, style.text__cart].join(' ')}>{totalPrice} руб.</p>
+                        <p className={[style.list__text, style.text__cart].join(' ')}>${totalPrice}</p>
                     </li>
                     <Link to="/favorites">
                         <li className={style.list__item}>

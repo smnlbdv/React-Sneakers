@@ -9,6 +9,8 @@ function Card({
   imgUrl,
   title,
   price,
+  color,
+  gigBit,
   onPlus,
   onFavorite,
   loading = true,
@@ -25,7 +27,7 @@ function Card({
   };
 
   return (
-    <div className={style.card}>
+    <div className={style.card} style={{background: `linear-gradient(0deg, #fff 30%, ${color} 100%)`}}>
       {loading ? (
         <ContentLoader
           speed={2}
@@ -45,33 +47,39 @@ function Card({
         <>
           <div className={style.block_image}>
             <img className={style.image} src={imgUrl} alt="Sneakers" />
-            <img
-              className={style.img_favorite}
-              src={
-                isItemFavorite(id)
-                  ? "/icon/favorite-love-red.svg"
-                  : "/icon/favorite-love.svg"
-              }
-              alt=""
-              onClick={loveClick}
-            />
           </div>
+          <div className={style.color_circle}>
+            <div className={style.circle} style={ {backgroundColor: color}}></div>
+          </div>
+          <span className={style.span_new}>New</span>
           <p className={style.title}>{title}</p>
           <div className={style.description}>
             <div className={style.price}>
               <span>Цена:</span>
-              <b>{price} $</b>
+              <b>${price}</b>
             </div>
-            <img
-              className={style.image_add}
-              onClick={handleClick}
-              src={
-                isItemAdded(id)
-                  ? "/icon/btn-add-plus-check.svg"
-                  : "/icon/btn-add-plus.svg"
-              }
-              alt="addIcon"
-            />
+            <div>
+              <img
+                className={style.image_add}
+                onClick={handleClick}
+                src={
+                  isItemAdded(id)
+                    ? "/icon/btn-add-plus-check.svg"
+                    : "/icon/btn-add-plus.svg"
+                }
+                alt="addIcon"
+              />
+              <img
+                className={style.img_favorite}
+                src={
+                  isItemFavorite(id)
+                    ? "/icon/favorite-love-red.svg"
+                    : "/icon/favorite-love.svg"
+                }
+                alt=""
+                onClick={loveClick}
+              />
+            </div>
           </div>
         </>
       )}
