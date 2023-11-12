@@ -29,20 +29,25 @@ function Card({
   return (
     <div className={style.card} style={{background: `linear-gradient(0deg, #fff 30%, ${color} 100%)`}}>
       {loading ? (
-        <ContentLoader
-          speed={2}
-          width={150}
-          height={187}
-          viewBox="0 0 150 187"
-          backgroundColor="#f3f3f3"
-          foregroundColor="#ecebeb"
-        >
-          <rect x="101" y="9" rx="0" ry="0" width="0" height="1" />
-          <rect x="0" y="0" rx="10" ry="10" width="150" height="91" />
-          <rect x="0" y="100" rx="3" ry="3" width="150" height="15" />
-          <rect x="5" y="123" rx="3" ry="3" width="93" height="15" />
-          <rect x="116" y="149" rx="8" ry="8" width="32" height="32" />
-        </ContentLoader>
+      <ContentLoader 
+      speed={2}
+      width={193}
+      height={300}
+      viewBox="0 0 193 300"
+      backgroundColor="#e9e7e8"
+      foregroundColor="#ffffff"
+    >
+      <rect x="0" y="0" rx="4" ry="4" width="192" height="178" /> 
+      <rect x="0" y="212" rx="2" ry="2" width="29" height="16" /> 
+      <rect x="0" y="236" rx="3" ry="3" width="101" height="16" /> 
+      <rect x="0" y="266" rx="2" ry="2" width="36" height="12" /> 
+      <rect x="0" y="283" rx="2" ry="2" width="36" height="16" /> 
+      <rect x="26" y="454" rx="6" ry="6" width="31" height="31" /> 
+      <rect x="158" y="268" rx="6" ry="6" width="30" height="30" /> 
+      <circle cx="102" cy="200" r="9" /> 
+      <rect x="22" y="519" rx="6" ry="6" width="30" height="30" /> 
+      <rect x="120" y="268" rx="6" ry="6" width="30" height="30" />
+    </ContentLoader>
       ) : (
         <>
           <div className={style.block_image}>
