@@ -40,8 +40,7 @@ const Basket = ({cartOpen}) => {
                                     cartItems.map((obj, index) => (
                                         <BasketCard 
                                             key = {index}
-                                            id = {obj.id}
-                                            cart_item = {obj.cart_item}
+                                            id = {obj.cartItem}
                                             imgUrl = {obj.imgUrl}
                                             title = {obj.title}
                                             price = {obj.price}

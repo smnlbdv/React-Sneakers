@@ -50,20 +50,25 @@ function App() {
   }, []);
 
   const onAddToCart = async (obj) => {
+    console.log(obj)
     try {
       if (
-        cartItems.find(
-          (item) => Number(item.cart_item) == Number(obj.cart_item)
+        cartItems.some(
+          (item) => {
+            item.cartItem === obj.cartItem
+          }
         )
       ) {
+        console.log("есть")
+
         setCartItems((prev) =>
-          prev.filter((item) => Number(item.cart_item) !== Number(obj.cart_item))
+          prev.filter((item) => item.cartItem !==  obj.id )
         );
-        await axios.delete(
-          `https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${Number(
-            obj.cart_item
-          )}`
-        );
+        // await axios.delete(
+        //   `https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${
+        //     obj.cartItem
+        //   }`
+        // );
       } else {
         await axios.post(
           "https://6540d1ed45bedb25bfc2af59.mockapi.io/cart",
@@ -72,10 +77,12 @@ function App() {
         setCount(count + 1);
         obj.id = count;
         setCartItems((prev) => [...prev, obj]);
+
       }
     } catch (error) {
       alert("Ошибка при добавлении в корзину");
     }
+
   };
 
   const onChangeSearch = (event) => {
@@ -94,14 +101,19 @@ function App() {
     setCartItems([])
   }
 
-  const onRemoveItem = async (id, cart_item) => {
+  const onRemoveItem = async (obj) => {
+    console.log(obj)
+    console.log(cartItems)
+
     try {
-      await axios.delete(
-        `https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${id}`
-      );
-      setCartItems((prev) =>
-        prev.filter((item) => Number(item.cart_item) !== Number(cart_item))
-      );
+      cartItems.forEach(itemCart => {
+        if(itemCart.cartItem == obj.cartItem) {
+          axios.delete(`https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${itemCart.id}`);
+          setCartItems((prev) =>
+            prev.filter((item) => item.cartItem != obj.cartItem)
+          );
+        }
+      })
     } catch (error) {
       alert("Ошибка при удалении из корзины");
     }
@@ -118,7 +130,7 @@ function App() {
   };
 
   const isItemAdded = (id) => {
-    return cartItems.some((item) => Number(item.cart_item) === Number(id));
+    return cartItems.some((item) => item.cartItem == id);
   };
 
   const isItemFavorite = (id) => {

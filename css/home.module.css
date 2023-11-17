@@ -1,0 +1,6 @@
+.sneakers__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+  gap: 20px;
+  margin-top: 40px;
+}

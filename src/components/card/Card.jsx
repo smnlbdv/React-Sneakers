@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import style from "./card.module.scss";
 import ContentLoader from "react-content-loader";
 import { Context } from '../../context.js'
@@ -10,7 +10,6 @@ function Card({
   title,
   price,
   color,
-  gigBit,
   onPlus,
   onFavorite,
   loading = true,
@@ -19,7 +18,7 @@ function Card({
   const {isItemAdded, isItemFavorite} = useContext(Context)
   
   const handleClick = () => {
-    onPlus({ cart_item: id, imgUrl, title, price });
+    onPlus({ cartItem: id, imgUrl, title, price });
   };
 
   const loveClick = () => {

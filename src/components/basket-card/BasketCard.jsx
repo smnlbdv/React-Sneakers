@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import style from './basket-cart.module.scss'
 import { Context } from '../../context.js'
 
-const BasketCard = ({id, cart_item, imgUrl, title, price}) => {
+const BasketCard = ({id, imgUrl, title, price}) => {
 
     const {onRemoveItem} = useContext(Context)
 
@@ -16,7 +16,7 @@ const BasketCard = ({id, cart_item, imgUrl, title, price}) => {
                 <p>{title}</p>
                 <b>{price} руб.</b>
             </div>
-            <button onClick={() => onRemoveItem(id, cart_item)} className={style.list__basket_button} >
+            <button onClick={() => onRemoveItem({cartItem: id, imgUrl, title, price})} className={style.list__basket_button} >
                 <img src="/icon/cart-close-item.svg" alt="" />
             </button>
         </div>
