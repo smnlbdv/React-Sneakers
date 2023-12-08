@@ -31,14 +31,11 @@ function App() {
     async function fetchData() {
       try {
         setIsLoading(true);
-
         const [cartRepsonse, itemsRepsonse] = await  Promise.all([
           axios.get("https://6540d1ed45bedb25bfc2af59.mockapi.io/cart"),
           axios.get("https://6540d1ed45bedb25bfc2af59.mockapi.io/sneakers"),
         ]);
-
         setIsLoading(false);
-
         setItems(itemsRepsonse.data);
         setCartItems(cartRepsonse.data);
       } catch (error) {
@@ -50,7 +47,6 @@ function App() {
   }, []);
 
   const onAddToCart = async (obj) => {
-    console.log(obj)
     try {
       if (
         cartItems.some(
@@ -59,16 +55,9 @@ function App() {
           }
         )
       ) {
-        console.log("есть")
-
         setCartItems((prev) =>
           prev.filter((item) => item.cartItem !==  obj.id )
         );
-        // await axios.delete(
-        //   `https://6540d1ed45bedb25bfc2af59.mockapi.io/cart/${
-        //     obj.cartItem
-        //   }`
-        // );
       } else {
         await axios.post(
           "https://6540d1ed45bedb25bfc2af59.mockapi.io/cart",
@@ -102,9 +91,6 @@ function App() {
   }
 
   const onRemoveItem = async (obj) => {
-    console.log(obj)
-    console.log(cartItems)
-
     try {
       cartItems.forEach(itemCart => {
         if(itemCart.cartItem == obj.cartItem) {
