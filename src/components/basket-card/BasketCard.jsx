@@ -1,17 +1,23 @@
-import './basket-cart.scss'
+/* eslint-disable react/prop-types */
+import { useContext } from 'react'
+import style from './basket-cart.module.scss'
+import { Context } from '../../context.js'
 
-const BasketCard = () => {
+const BasketCard = ({id, imgUrl, title, price}) => {
+
+    const {onRemoveItem} = useContext(Context)
+
     return ( 
-        <div className="list__basket-item">
-            <div className="list__basket-image">
-                <img src="/image/cart-image-1.jpg" alt="" />
+        <div className={style.list__basket_item}>
+            <div className={style.list__basket_image}>
+                <img src={imgUrl} alt="" />
             </div>
-            <div className="list__basket-description">
-                <p>Мужские Кроссовки Nike Air Max 270</p>
-                <b>12 999 руб.</b>
+            <div className={style.list__basket_description}>
+                <p>{title}</p>
+                <b>{price} руб.</b>
             </div>
-            <button className='list__basket-button'>
-                <img src="/icon/btn-add-plus.svg" alt="" />
+            <button onClick={() => onRemoveItem({cartItem: id, imgUrl, title, price})} className={style.list__basket_button} >
+                <img src="/icon/cart-close-item.svg" alt="" />
             </button>
         </div>
      );
